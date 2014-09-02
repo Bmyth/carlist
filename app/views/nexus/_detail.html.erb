@@ -1,0 +1,246 @@
+<div class="detail-panel unique-panel">
+<div class="container-fluid panel">
+<div class="opts detail-opts row">
+  <div class="pull-right btn-group">
+    <p class="btn  btn-default back" id="edit">编辑</p>
+
+    <p class="btn  btn-default back" id="delete">删除</p>
+
+    <p class="btn  btn-default back" id="back">返回</p>
+  </div>
+</div>
+
+<div class="opts edit-opts row">
+  <div class="pull-right btn-group">
+    <p class="btn  btn-default back" id="save">保存</p>
+
+    <p class="btn  btn-default back" id="back">返回</p>
+  </div>
+</div>
+
+<ul class="list-group">
+<form>
+<li class="list-group-item" id="bd-info">
+  <div class="row show-row">
+    <div class="value col-xs-12">
+      <p id="applicantNameText">未填</p>
+      <p id="plateText">未填</p>
+      <p id="numberText">未填</p>
+      <p id="bdTypeText">未填</p>
+    </div>
+  </div>
+  <div class="row edit-row">
+    <div class="title col-xs-4"><p>投保人</p></div>
+    <div class="value col-xs-8"><input type="text" class="need-clean" placeholder="" name="bd[applicantName]" id="applicantNameInput" autofocus="true"></div>
+  </div>
+  <div class="row edit-row need-farther">
+      <div class="title col-xs-4"><p>车牌号</p></div>
+      <div class="value col-xs-8"><input type="text" class="need-clean" placeholder="" name="bd[plate]" id="plateInput"></div>
+  </div>
+  <div class="row edit-row need-farther">
+      <div class="title col-xs-4"><p>保单号</p></div>
+      <div class="value col-xs-8"><input type="text" class="need-clean" placeholder="" name="bd[number]" id="numberInput"></div>
+  </div>
+  <div class="row edit-row need-farther">
+      <div class="title col-xs-4"><p>类型</p></div>
+      <div class="value col-xs-8">
+        <span class="label label-default sp-type sponser " code="type">营运</span>
+        <div class="sponsee spe-type" code="type">
+          <span value ="op" class="label label-default">营运</span>
+          <span value ="nop" class="label label-default">非营运</span>
+        </div>
+        <input type="text" class="need-clean" name="bd[bdType]" id="bdTypeInput" style="display: none">
+      </div>
+  </div>
+</li>
+<li class="list-group-item" id="master">
+  <div class="row show-row">
+    <div class="value col-xs-8"><p id="masterText">未填</p></div>
+    <div class="edit col-xs-4">
+      <div class="btn-group-sm pull-right">
+        <p class="btn btn-default master-uncheck-trigger" id="not-check-index">未出</p>
+        <p class="btn btn-success master-check-trigger" id="check-index">已出</p>
+      </div>
+    </div>
+  </div>
+  <div class="edit-row">
+    <div class="row">
+      <div class="title col-xs-4"><p>保险公司</p></div>
+      <div class="value col-xs-8"><input type="text" class="need-clean" placeholder="" name="bd[master]" id="masterInput"></div>
+      <div class="ghost-input" style="display: none">
+        <input type="text" class="form-control" placeholder="" name="bd[masterChecked]" style="display: none" value="false" id="masterCheckedInput">
+      </div>
+    </div>
+  </div>
+</li>
+<li class="list-group-item" id="worker">
+  <div class="row show-row">
+    <div class="value col-xs-8"><p id="workerText">未填</p></div>
+    <div class="edit col-xs-4">
+      <div class="btn-group-sm pull-right">
+        <p class="btn btn-default worker-uncheck-trigger" id="not-check-index">未出</p>
+        <p class="btn btn-success worker-check-trigger" id="check-index">已出</p>
+      </div>
+    </div>
+  </div>
+  <div class="edit-row">
+    <div class="row">
+      <div class="title col-xs-4"><p>办理人</p></div>
+      <div class="value col-xs-8"><input type="text" class="need-clean" placeholder="" name="bd[worker]" id="workerInput"></div>
+      <div class="ghost-input" style="display: none">
+        <input type="text" class="form-control" placeholder="" name="bd[workerChecked]" value="false" id="workerCheckedInput">
+      </div>
+    </div>
+  </div>
+</li>
+<li class="list-group-item" id="fee-a">
+  <div class="row show-row">
+    <div class="value col-xs-8">
+      <p id="feeAText">金额：未填</p>
+      <span id="feeAoutText">支付率：未填</span>
+      <span id="feeAinText">收入率：未填</span>
+    </div>
+  </div>
+  <div class="row edit-row">
+    <div class="title col-xs-4"><p>交强险</p></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[feeA]" id="feeAInput"></div>
+  </div>
+  <div class="row edit-row need-farther">
+    <div class="title col-xs-4"><p>支付率</p></div>
+    <div class="value col-xs-8"><input class="need-clean" placeholder="" name="bd[rateAin]" id="feeAinInput"></div>
+  </div>
+  <div class="row edit-row need-farther">
+    <div class="title col-xs-4"><p>收入率</p></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[rateAout]" id="feeAoutInput"></div>
+  </div>
+</li>
+<li class="list-group-item" id="fee-b">
+  <div class="row show-row">
+    <div class="value col-xs-8">
+      <p id="feeBText">金额：未填</p>
+      <span id="feeBoutText">支付率：未填</span>
+      <span id="feeBinText">收入率：未填</span>
+    </div>
+  </div>
+  <div class="row edit-row">
+    <div class="title col-xs-4"><p>商业险</p></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[feeB]" id="feeBInput"></div>
+  </div>
+  <div class="row edit-row need-farther">
+    <div class="title col-xs-4"><p>支付率</p></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[rateBin]" id="feeBinInput"></div>
+  </div>
+  <div class="row edit-row need-farther">
+    <div class="title col-xs-4"><p>收入率</p></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[rateBout]" id="feeBoutInput"></div>
+  </div>
+</li>
+<li class="list-group-item" id="date">
+  <div class="row show-row">
+    <div class="value col-xs-8">
+      <p id="fillDateText" style="display: none">办理时间：未填</p>
+      <p id="startDateText" style="display: none">生效时间：未填</p>
+      <p id="endDateText">到期时间：未填</p>
+    </div>
+  </div>
+  <div class="row edit-row">
+    <div class="title col-xs-4"><p>到期日期</p></div>
+    <div class="value col-xs-8">
+      <div class="endDateWrapper">
+          <span class="label label-default endDateYear sponser sp-endDateYear" code="endDateYear">2015</span>
+          <span class="label label-default endDateMonth sponser sp-endDateMonth" code="endDateMonth">01</span>
+          <span class="label label-default endDateDay sponser sp-endDateDay" code="endDateDay">01</span>
+          <input class="need-clean" placeholder="" name="bd[endDate]" id="endDateInput" type="date" data-role="datebox" style="display: none">
+      </div>
+    </div>
+    <div class="col-xs-12 sponsee-row">
+      <div class="sponsee" code="endDateYear">
+        <span value ="2014" class="label label-default">2014</span>
+        <span value ="2015" class="label label-default">2015</span>
+        <span value ="2016" class="label label-default">2016</span>
+        <span value ="2017" class="label label-default">2017</span>
+      </div>
+      <div class="sponsee" code="endDateMonth">
+        <span value ="01" class="label label-default">01</span>
+        <span value ="02" class="label label-default">02</span>
+        <span value ="03" class="label label-default">03</span>
+        <span value ="04" class="label label-default">04</span>
+        <span value ="05" class="label label-default">05</span>
+        <span value ="06" class="label label-default">06</span>
+        <span value ="07" class="label label-default">07</span>
+        <span value ="08" class="label label-default">08</span>
+        <span value ="09" class="label label-default">09</span>
+        <span value ="10" class="label label-default">10</span>
+        <span value ="11" class="label label-default">11</span>
+        <span value ="12" class="label label-default">12</span>
+      </div>
+      <div class="sponsee" code="endDateDay">
+        <span value ="01" class="label label-default">01</span>
+        <span value ="02" class="label label-default">02</span>
+        <span value ="03" class="label label-default">03</span>
+        <span value ="04" class="label label-default">04</span>
+        <span value ="05" class="label label-default">05</span>
+        <span value ="06" class="label label-default">06</span>
+        <span value ="07" class="label label-default">07</span>
+        <span value ="08" class="label label-default">08</span>
+        <span value ="09" class="label label-default">09</span>
+        <span value ="10" class="label label-default">10</span>
+        <span value ="11" class="label label-default">11</span>
+        <span value ="12" class="label label-default">12</span>
+        <span value ="13" class="label label-default">13</span>
+        <span value ="14" class="label label-default">14</span>
+        <span value ="15" class="label label-default">15</span>
+        <span value ="16" class="label label-default">16</span>
+        <span value ="17" class="label label-default">17</span>
+        <span value ="18" class="label label-default">18</span>
+        <span value ="19" class="label label-default">19</span>
+        <span value ="20" class="label label-default">20</span>
+        <span value ="21" class="label label-default">21</span>
+        <span value ="22" class="label label-default">22</span>
+        <span value ="23" class="label label-default">23</span>
+        <span value ="24" class="label label-default">24</span>
+        <span value ="25" class="label label-default">25</span>
+        <span value ="26" class="label label-default">26</span>
+        <span value ="27" class="label label-default">27</span>
+        <span value ="28" class="label label-default">28</span>
+        <span value ="29" class="label label-default">29</span>
+        <span value ="30" class="label label-default">30</span>
+        <span value ="31" class="label label-default">31</span>
+      </div>
+    </div>
+  </div>
+</li>
+<li class="list-group-item" id="otherInfo">
+  <div class="row show-row">
+    <div class="value col-xs-12">
+      <p id="otherInfoText" class="extra"></p>
+    </div>
+  </div>
+  <div class="row edit-row">
+    <div class="title col-xs-4"><p>其他信息</p></div>
+    <div class="value col-xs-8"><input type="textarea" class="need-clean" placeholder="" id="otherInfoInput" name="bd[otherInfo]"></div>
+  </div>
+</li>
+</form>
+
+</ul>
+
+<div class="opts detail-opts row">
+<div class="pull-right btn-group">
+  <p class="btn  btn-default back" id="edit">编辑</p>
+
+  <p class="btn  btn-default back" id="delete">删除</p>
+
+  <p class="btn  btn-default back" id="back">返回</p>
+</div>
+</div>
+
+<div class="opts edit-opts row">
+<div class="pull-right btn-group">
+  <p class="btn  btn-default back" id="save">保存</p>
+
+  <p class="btn  btn-default back" id="back">返回</p>
+</div>
+</div>
+</div>
+</div>

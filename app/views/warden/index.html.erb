@@ -1,0 +1,111 @@
+<div class="container-fluid warden-page">
+<% if @warden %>
+    <section id="user-list">
+      <div class="opt-panel panel">
+        <p class="btn btn-default pull-right" id="user-add">add</p>
+      </div>
+
+      <div class="user-add-form panel panel-default" style="display: none">
+        <form action="/addUser" method="post" id="user-add-form" style="overflow: hidden">
+          <h4>adding user</h4>
+          <div class="form-group">
+            <input name="user[name]" placeholder="name" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <input name="user[password]" placeholder="password" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <input name="user[info1]" placeholder="info1" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <input name="user[info2]" placeholder="info2" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <input name="user[info3]" placeholder="info3" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <input name="user[info4]" placeholder="info4" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <input name="user[expiryDate]" placeholder="expiry date" type="date" class="form-control">
+          </div>
+          <input type="submit" value="submit" id="sb" class="btn btn-primary pull-right">
+        </form>
+      </div>
+
+      <div class="user-update-form panel panel-default" style="display: none">
+        <form action="/updateUser" method="post" id="user-update-form" style="overflow: hidden">
+          <h4>updating user</h4>
+          <div class="form-group">
+            <input name="uid" type="text" class="form-control" id="uid">
+          </div>
+          <div class="form-group">
+            <input name="user[name]" placeholder="name" type="text" class="form-control" id="name">
+          </div>
+          <div class="form-group">
+            <input name="user[password]" placeholder="password" type="text" class="form-control" id="password">
+          </div>
+          <div class="form-group">
+            <input name="user[info1]" placeholder="info1" type="text" class="form-control" id="info1">
+          </div>
+          <div class="form-group">
+            <input name="user[info2]" placeholder="info2" type="text" class="form-control" id="info2">
+          </div>
+          <div class="form-group">
+            <input name="user[info3]" placeholder="info3" type="text" class="form-control" id="info3">
+          </div>
+          <div class="form-group">
+            <input name="user[info4]" placeholder="info4" type="text" class="form-control" id="info4">
+          </div>
+          <div class="form-group">
+            <input name="user[expiryDate]" placeholder="expiry date" type="date" class="form-control" id="expiryDate">
+          </div>
+          <input type="submit" value="submit" id="sb" class="btn btn-primary pull-right">
+        </form>
+      </div>
+
+      <ul class="list-group">
+      <% @users.each do |c| %>
+        <li class="list-group-item">
+          <div class="row">
+             <p class="col-xs-6">
+                <span class="name"><%= c.name %></span>
+                <span class="expiryDate"><%= c.expiryDate %></span>
+                <span class="password" style="display: none"><%= c.password %></span>
+             </p>
+             <div class="col-xs-6">
+               <div class="btn-group-sm pull-right">
+                <p class="btn btn-default" id="user-update" uid="<%= c.id%>">修改</p>
+                <p class="btn btn-default" id="user-delete" uid="<%= c.id%>">删除</p>
+               </div>
+             </div>
+          </div>
+          <div class="row">
+            <p class="col-xs-3">
+              <span class="info1"><%= c.info1 %></span>
+            </p>
+            <p class="col-xs-3">
+              <span class="info2"><%= c.info2 %></span>
+            </p>
+            <p class="col-xs-3">
+              <span class="info3"><%= c.info3 %></span>
+            </p>
+            <p class="col-xs-3">
+              <span class="info4"><%= c.info4 %></span>
+            </p>
+          </div>
+        </li>
+      <% end %>
+      </ul>
+    </section>
+<% else %>
+    <section id="login">
+        <h4>login</h4>
+        <form action="/wardenlogin" method="post" id="login-form">
+          <input name="key" placeholder="key" type="text" class="form-control">
+          <input name="password" placeholder="password" type="password" class="form-control">
+          <input type="submit" value="登陆" id="sb" class="btn btn-primary">
+        </form>
+    </section>
+<% end %>
+</div>

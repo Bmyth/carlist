@@ -1,0 +1,39 @@
+<div class="container-fluid setting-page">
+  <div class="panel">
+    <div class="row">
+      <div class="btn-group pull-right">
+        <p class="btn btn-default save">更新</p>
+        <p class="btn btn-default back">返回</p>
+      </div>
+    </div>
+    <div class="row">
+      <ul class="list-group">
+        <li class="list-group-item">
+            <div class="row">
+              <div class="title col-xs-4"><p>用户名</p></div>
+              <div class="title col-xs-8"><p><%= @user.name %></p></div>
+            </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="title col-xs-4"><p>到期时间</p></div>
+            <div class="title col-xs-8"><p><%= @user.expiryDate %></p></div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="title col-xs-4"><p>保险公司</p></div>
+            <div class="title col-xs-8">
+              <div>
+                <% @user.masters.each do |c| %>
+                    <p><%= c.name %><p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

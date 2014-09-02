@@ -1,0 +1,71 @@
+<%= render :partial => 'nav' %>
+
+<div class="bd-page container-fluid panel unique-panel">
+    <ul class="list-group bd-list">
+      <li class="list-group-item title-row" style="display: none">
+        <div class="row">
+          <p id="basic-info" class="col-sm-4 col-xs-4">投保人/保单号</p>
+          <p id="fee" class="col-sm-4 col-xs-4">交强+车船，商业险</p>
+          <p id="status" class="col-sm-4 col-xs-4">办理人/保险公司</p>
+        </div>
+      </li>
+
+      <% fill_date = '9999' %>
+      <% @bds.each do |c|%>
+          <% if fill_date != c.fillDate %>
+            <% fill_date = c.fillDate %>
+            <li class="date-item list-group-item">
+              <div class="row">
+                <p><%= fill_date %></p>
+              </div>
+            </li>
+          <% end %>
+          <li class="bd-item list-group-item" bdIdx = "<%= c.id%>" number="<%= c.number%>" applicantName="<%= c.applicantName%>" master="<%= c.master%>" worker="<%= c.worker%>" masterCheck="<%= c.masterChecked? ? 'y' : 'n'%>" workerCheck="<%= c.workerChecked? ? 'y' : 'n'%>" endDate="<%= c.endDate %>" fillDate="<%= c.fillDate%>" feeA="<%= c.feeA.nil?? 0 : c.feeA%>" feeB="<%= c.feeB.nil?? 0 : c.feeB %>" rateAin="<%= c.rateAin %>" rateAout="<%= c.rateAout%>" rateBin="<%= c.rateBin%>" rateBout="<%= c.rateBout%>">
+            <div class="row">
+              <div class="bd-name col-xs-4">
+                <p class="text-left applicantNameText"><%= c.applicantName %></p>
+                <small class="text-left numberText"><%= c.number %></small>
+              </div>
+              <div class="bd-fee col-xs-4">
+                <p class="feeAText"><%= c.feeA.to_s %></p>
+                <p class="feeBText"><%= c.feeB.to_s%></p>
+              </div>
+              <div class="bd-check col-xs-4">
+                <p id="info-master" class="<%= c.masterChecked ? '' : 'not-checked'%>"><%= c.master %></p>
+                <p id="info-worker" class="<%= c.workerChecked ? '' : 'not-checked'%>"><%= c.worker %></p>
+              </div>
+            </div>
+          </li>
+      <% end %>
+    </ul>
+</div>
+
+<%= render :partial => 'detail' %>
+
+<div class="bd-template" style="display: none">
+  <li class="date-item list-group-item">
+    <div class="row">
+      <p></p>
+    </div>
+  </li>
+  <li class="bd-item list-group-item">
+    <div class="row">
+      <div class="bd-name col-xs-4">
+        <p class="text-left applicantNameText"></p>
+        <small class="text-left numberText"></small>
+      </div>
+      <div class="bd-fee col-xs-4">
+        <p class="feeAText"></p>
+        <p class="feeBText"></p>
+      </div>
+      <div class="bd-check col-xs-4">
+        <p id="info-master"></p>
+        <p id="info-worker"></p>
+      </div>
+    </div>
+  </li>
+</div>
+
+<%= render :partial => 'bottom' %>
+
+

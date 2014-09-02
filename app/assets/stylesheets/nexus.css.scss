@@ -1,0 +1,352 @@
+// Place all the styles related to the nexus controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body{
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  font-size: 14px;
+}
+
+h1, h2, h3, h4, p{
+  text-align: center;
+}
+
+.login-page{
+  max-width: 800px;
+  section#first-section{
+    h1{
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    small{
+      margin-bottom: 50px;
+    }
+    h4{
+      margin-bottom: 20px;
+    }
+  }
+  section#middle-section{
+    height: 20px;
+  }
+  section#last-section{
+    h3{
+      padding-bottom: 20px;
+      border-bottom: 1px solid #2E2F30;
+    }
+    p{ color: #666666; }
+  }
+}
+
+#login-form{
+  max-width: 300px;
+  margin: 10px auto;
+  input{
+    width: 100%;
+    display: block;
+    font-size: 1em;
+    text-align: center;
+    margin-top: 10px;
+  }
+  #error-message{
+    color:darkred;
+    margin-top: 6px;
+  }
+}
+
+.console-panel{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  background: #333;
+  padding: 0;
+  .container-fluid{
+    max-width: 800px;
+    padding: 0;
+  }
+  .nav-tabs{
+    border: none;
+    li{
+      font-size: 1em;
+    }
+    li:hover a{
+      color: #333;
+    }
+    cursor: pointer;
+    a{
+      padding: 10px 16px;
+      color: #fff;
+      border-radius: 0;
+    }
+  }
+  .user-opt{
+    cursor: pointer;
+    padding: 8px;
+    margin: 0;
+  }
+  .user-opt-list{
+    width: 100%;
+  }
+
+  .row-2{
+    display: none;
+    padding-top: 8px;
+    padding-bottom: 3px;
+    border-top: 1px solid #fff;
+    #search-key{
+      max-width: 140px;
+    }
+    .searchOpts li{
+      padding: 8px;
+    }
+  }
+}
+
+.bd-page{
+  width: 100%;
+  max-width: 800px;
+  margin-top: 42px;
+  padding-left: 0;
+  padding-right: 0;
+  .list-group{
+    width: 100%;
+  }
+  .bd-item{
+    cursor: pointer;
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 48px;
+    overflow: hidden;
+    .bd-name{
+      p{
+        font-size: 1.2em;
+        margin-bottom: 0;
+      }
+    }
+    .bd-fee, .bd-check{
+        padding-top: 2px;
+      p {
+        margin: 0px;
+      }
+    }
+    .bd-check{
+      p {
+          min-width: 60px;
+          color: #5cb85c;
+          text-align: right;
+      }
+      .not-checked{
+        color: #bbb;
+      }
+    }
+  }
+}
+
+.bd-item:hover{
+  background: #ddd;
+}
+
+.bd-item.hide{
+  display: none;
+}
+
+.bd-page .bd-item.in-range{
+  border-left: 4px solid firebrick !important;
+}
+
+.bd-page.search-mod .bd-item.in-range{
+  border-left: none !important;
+}
+
+.date-item{
+  padding: 1px;
+  color: #666;
+  background: #eee;
+  p{
+    font-size: 0.8em;
+    margin: 0;
+    text-align: right;
+    padding-right: 30px;
+  }
+}
+
+.detail-panel{
+  width: 100%;
+  display: none;
+  margin-top: 42px;
+  .container-fluid{
+    max-width: 800px;
+    background: #fff;
+    border: 1px solid #ddd;
+  }
+  .opts{
+    margin: 5px 0;
+    .btn{
+      padding: 5px 7px;
+    }
+    .locked{
+      background: #dddd;
+    }
+  }
+  .list-group-item{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 0;
+    p{
+      text-align: left;
+      margin-bottom: 2px;
+    }
+    .title p{
+      border-right: 1px solid #999;
+      text-align: right;
+      padding-right: 8px;
+    }
+    input{
+      font-size: 1.5em;
+      border: none;
+      background: #eee;
+    }
+    #rateAinInput, #rateAoutInput, #rateBinInput, #rateBoutInput{
+      border: none;
+      border-bottom: 5px solid #999999;
+      margin-top: 10px;
+      width: 45%;
+      text-align: center;
+    }
+    input:focus{
+      outline: none;
+    }
+    .need-farther{
+      margin-top: 8px;
+    }
+    .endDateWrapper input{
+      width: 30%;
+      text-align: center;
+    }
+  }
+  .list-group-item#worker, .list-group-item#master{
+    .edit{
+      padding-left: 0;
+      padding-right: 0;
+      #check-index, #not-check-index{
+        opacity: 0.3;
+      }
+      .checked{
+        opacity: 1 !important;
+      }
+    }
+  }
+  .list-group-item#date input{
+    line-height: 1em;
+  }
+  .list-group-item#otherInfo input{
+    border: 1px solid #aaa;
+    min-height: 45px;
+    text-align: left;
+  }
+  #feeAoutText, #feeAinText, #feeBoutText, #feeBinText{
+    font-size: 0.8em;
+    padding-right: 10px;
+  }
+  .sp-type{
+    display: block;
+    float: none;
+    width: 50px;
+  }
+  .spe-type span{
+    width: 60px;
+  }
+}
+
+.detail-panel.detail-mode{
+  .edit-opts, .edit-row{
+    display: none;
+  }
+}
+
+.detail-panel.edit-mode, .detail-panel.update-mode{
+  .detail-opts, .show-row{
+    display: none;
+  }
+  .list-group-item#worker{
+    border: none;
+  }
+  .pencil{
+    padding: 0;
+  }
+}
+
+.nav-padding{
+  height: 0;
+}
+
+.bottom-panel{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #333;
+  height: 45px;
+  color: #fff;
+  .container-fluid{
+    max-width: 800px;
+  }
+  .bottom-container{
+    margin-top: 2px;
+  }
+  .bottom-opt{
+    margin-top: 2px;
+    padding: 0;
+    button {
+      text-align: center;
+      width: 33%;
+    }
+  }
+  .bottom-info {
+    padding: 0 5px;
+    span{
+      padding: 3%;
+    }
+  }
+
+  .bif-in{
+    color: lightgreen;
+  }
+  .bif-out{
+    color: lightcoral;
+  }
+}
+.bottom-padding{
+  height: 48px;
+}
+
+.badge:empty{
+  display: block;
+  height: 18px;
+}
+
+.sponser{
+  cursor: pointer;
+  min-width: 38px;
+  display: block;
+  float: left;
+  margin: 2px;
+  padding: 6px 0;
+}
+
+.sponsee{
+  display: none;
+  overflow: hidden;
+  padding: 3px 0;
+  span{
+    cursor: pointer;
+    display: block;
+    float: left;
+    margin: 2px;
+    padding: 6px 0;
+    background: #fff;
+    color: #333;
+    border: 1px solid #999;
+    width: 18%;
+  }
+}

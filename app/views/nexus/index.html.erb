@@ -1,0 +1,26 @@
+<div class="container-fluid login-page">
+    <section id="first-section">
+        <h1>保单助手</h1>
+        <p>24小时在线保单管理服务</p>
+        <p>登陆个人账号</p>
+
+        <form action="/login" method="post" id="login-form">
+            <input name="name" placeholder="账号" type="text" class="form-control">
+            <input name="password" placeholder="密码" type="password" class="form-control">
+            <input type="submit" value="登陆" id="sb" class="btn btn-primary">
+            <% if flash[:error_message] %>
+              <p id="error-message"><%= flash[:error_message] %></p>
+            <% end %>
+        </form>
+    </section>
+    <section id="middle-section">
+    </section>
+    <section id="last-section">
+        <h3>联系我们</h3>
+        <div class="row">
+            <p class="col-sm-4 col-xs-12">电话: 13700000000</p>
+            <p class="col-sm-4 col-xs-12">电子邮件: bdzs@163.com</p>
+            <p class="col-sm-4 col-xs-12">QQ: 123456789</p>
+        </div>
+    </section>
+</div>

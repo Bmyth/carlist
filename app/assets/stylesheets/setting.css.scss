@@ -1,0 +1,18 @@
+.setting-page{
+  max-width: 800px;
+  #login{
+    margin-top: 75px;
+  }
+  #user-list{
+    .opt-panel{
+      overflow: hidden;
+      margin: 6px 0;
+    }
+    .row{
+      min-height: 35px;
+    }
+    p{
+      text-align: left;
+    }
+  }
+}
