@@ -5,6 +5,8 @@
 body{
   font-family: "Helvetica Neue", "Arial", sans-serif;
   font-size: 14px;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 h1, h2, h3, h4, p{
@@ -108,6 +110,7 @@ h1, h2, h3, h4, p{
   margin-top: 42px;
   padding-left: 0;
   padding-right: 0;
+  overflow-x: hidden;
   .list-group{
     width: 100%;
   }
@@ -152,7 +155,7 @@ h1, h2, h3, h4, p{
 }
 
 .bd-page .bd-item.in-range{
-  border-left: 4px solid firebrick !important;
+  border-left: 8px solid firebrick !important;
 }
 
 .bd-page.search-mod .bd-item.in-range{
@@ -206,6 +209,7 @@ h1, h2, h3, h4, p{
       font-size: 1.5em;
       border: none;
       background: #eee;
+      width: 100%;
     }
     #rateAinInput, #rateAoutInput, #rateBinInput, #rateBoutInput{
       border: none;
@@ -303,10 +307,13 @@ h1, h2, h3, h4, p{
     }
   }
   .bottom-info {
-    padding: 0 5px;
+    padding: 0;
     span{
       padding: 3%;
     }
+  }
+  .col-xs-6{
+    padding: 0 0 0 12px;
   }
 
   .bif-in{
@@ -331,22 +338,28 @@ h1, h2, h3, h4, p{
   display: block;
   float: left;
   margin: 2px;
-  padding: 6px 0;
+  padding: 6px 3px;
+  font-size: 1em;
 }
 
 .sponsee{
   display: none;
   overflow: hidden;
-  padding: 3px 0;
+  padding: 3px 3px;
+  width: 100%;
   span{
     cursor: pointer;
     display: block;
     float: left;
     margin: 2px;
-    padding: 6px 0;
+    padding: 6px 2px;
     background: #fff;
     color: #333;
     border: 1px solid #999;
     width: 18%;
+    font-size: 1em;
   }
+}
+.spe-master span, .spe-worker span{
+  width: 75%;
 }

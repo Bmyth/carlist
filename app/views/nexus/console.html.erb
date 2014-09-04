@@ -20,7 +20,7 @@
               </div>
             </li>
           <% end %>
-          <li class="bd-item list-group-item" bdIdx = "<%= c.id%>" number="<%= c.number%>" applicantName="<%= c.applicantName%>" master="<%= c.master%>" worker="<%= c.worker%>" masterCheck="<%= c.masterChecked? ? 'y' : 'n'%>" workerCheck="<%= c.workerChecked? ? 'y' : 'n'%>" endDate="<%= c.endDate %>" fillDate="<%= c.fillDate%>" feeA="<%= c.feeA.nil?? 0 : c.feeA%>" feeB="<%= c.feeB.nil?? 0 : c.feeB %>" rateAin="<%= c.rateAin %>" rateAout="<%= c.rateAout%>" rateBin="<%= c.rateBin%>" rateBout="<%= c.rateBout%>">
+          <li class="bd-item list-group-item" bdIdx = "<%= c.id%>" number="<%= c.number%>" applicantName="<%= c.applicantName%>" master="<%= c.master%>" worker="<%= c.worker%>" masterCheck="<%= c.masterChecked? ? 'y' : 'n'%>" workerCheck="<%= c.workerChecked? ? 'y' : 'n'%>" endDate="<%= c.endDate %>" fillDate="<%= c.fillDate%>" feeA="<%= c.feeA.nil?? 0 : c.feeA%>" feeB="<%= c.feeB.nil?? 0 : c.feeB %>" rateAin="<%= c.rateAin %>" rateAout="<%= c.rateAout%>" rateBin="<%= c.rateBin%>" rateBout="<%= c.rateBout%>" plate="<%= c.plate%>">
             <div class="row">
               <div class="bd-name col-xs-4">
                 <p class="text-left applicantNameText"><%= c.applicantName %></p>

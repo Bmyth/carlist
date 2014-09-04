@@ -159,6 +159,78 @@ class NexusController < ApplicationController
     end
   end
 
+  def addMaster
+    if session[:user_id].nil?
+      redirect_to "/"
+    end
+
+    user = User.find (session[:user_id])
+    if user.nil?
+      render :json => {error: 'yes'}
+    end
+
+    master = Master.create!
+    master.user_id = session[:user_id]
+    master.name = params[:name]
+    master.save!
+    render :json => {success: 'yes', mid: master.id}
+  end
+
+  def deleteMaster
+    if session[:user_id].nil?
+      redirect_to "/"
+    end
+
+    user = User.find (session[:user_id])
+    if user.nil?
+      render :json => {error: 'yes'}
+    end
+
+    master = Master.find(params[:mid])
+    if master.nil?
+      render :json => {:error => 'not find'}
+    else
+      master.destroy
+      render :json => {:success => 'y'}
+    end
+  end
+
+  def addWorker
+    if session[:user_id].nil?
+      redirect_to "/"
+    end
+
+    user = User.find (session[:user_id])
+    if user.nil?
+      render :json => {error: 'yes'}
+    end
+
+    worker = Worker.create!
+    worker.user_id = session[:user_id]
+    worker.name = params[:name]
+    worker.save!
+    render :json => {success: 'yes', wid: worker.id}
+  end
+
+  def deleteWorker
+    if session[:user_id].nil?
+      redirect_to "/"
+    end
+
+    user = User.find (session[:user_id])
+    if user.nil?
+      render :json => {error: 'yes'}
+    end
+
+    worker = Worker.find(params[:wid])
+    if worker.nil?
+      render :json => {:error => 'not find'}
+    else
+      worker.destroy
+      render :json => {:success => 'y'}
+    end
+  end
+
   def db_params
     params.require(:bd).permit(:number, :applicantName, :bdType, :plate, :endDate, :worker, :master, :workerChecked, :masterChecked, :feeA, :rateAin, :rateAout, :feeB, :rateBin, :rateBout, :otherInfo)
   end

@@ -25,13 +25,21 @@ $(function(){
     $(".warden-page  #user-update").click(updateUser);
 
     $(".sponser").click(callSponsee);
-    $(".sponsee span").click(replySponser);
+    $(".sponsee span:not('.to-setting')").click(replySponser);
 
     $(".bottom-opt button").click(updateBottomInfoWithNewDays);
 
     $(".user-opt").click(toggleUserOpt);
     $(".user-opt-list .setting").click(toSettingView);
     $(".user-opt-list .logout").click(logout);
+
+    $(".add-master").click(addMaster);
+    $(".add-worker").click(addWorker);
+    $(".delete-master").click(deleteMaster);
+    $(".delete-worker").click(deleteWorker);
+
+    $(".to-setting").click(toSettingView);
+    $(".setting-page .back").click(toConsoleView);
 
     updateBottomInfo();
 });
@@ -86,8 +94,10 @@ function showDetailPanel(){
         dp.find('li#bd-info #bdTypeInput').val(response.bdType);
         dp.find('li#master #masterInput').val(response.master);
         dp.find('li#master #masterCheckedInput').val(response.masterChecked);
+        dp.find('li#master .sp-master').text(response.master);
         dp.find('li#worker #workerInput').val(response.worker);
         dp.find('li#worker #workerCheckedInput').val(response.workerChecked);
+        dp.find('li#worker .sp-worker').text(response.worker);
         dp.find('li#fee-a #feeAInput').val(response.feeA);
         dp.find('li#fee-a #feeAoutInput').val(response.rateAout);
         dp.find('li#fee-a #feeAinInput').val(response.rateAin);
@@ -118,10 +128,7 @@ function hideDetailPanel(){
 function showCreatePanel(){
     $('.bd-page').fadeOut(function(){
         $(".detail-panel").find('input.need-clean').val("");
-        $(".detail-panel").find('input#feeAinInput').val('0.1');
-        $(".detail-panel").find('input#feeAoutInput').val('0.2');
-        $(".detail-panel").find('input#feeBinInput').val('0.1');
-        $(".detail-panel").find('input#feeBoutInput').val('0.2');
+        fillWithCookie();
         $(".detail-panel").removeClass('detail-mode').addClass('edit-mode').fadeIn(function(){
 
         });
@@ -200,6 +207,8 @@ function submitBD(){
 
     $(".detail-panel input#bdTypeInput").val($(".sp-type").text());
     $(".detail-panel #date input#endDateInput").val($(".sp-endDateYear").text() + "-" + $(".sp-endDateMonth").text() + "-" + $(".sp-endDateDay").text());
+    $(".detail-panel input#masterInput").val($(".sp-master").text());
+    $(".detail-panel input#workerInput").val($(".sp-worker").text());
 
     var postVal = $('.detail-panel form').serialize();
     if($('.detail-panel').hasClass('update-mode')){
@@ -216,6 +225,8 @@ function submitBD(){
             renderBD(r);
         });
     }
+
+    updateCookie();
 
     function renderBD(response, bdid){
         var bdElement;
@@ -234,7 +245,7 @@ function submitBD(){
             }
 
         }
-        bdElement.attr({bdidx:response.id, number:response.number, applicantName:response.applicantName, master:response.master, worker:response.worker, masterCheck: (response.masterChecked ? 'y' : 'n'), workercheck: (response.workerChecked ? 'y' : 'n'), enddate: response.endDate, filldate: response.fillDate, feea : response.feeA, feeb : response.feeB, rateain : response.rateAin, rateaout : response.rateAout, ratebin : response.rateBin, rateBout : response.rateBout});
+        bdElement.attr({bdidx:response.id, number:response.number, applicantName:response.applicantName, master:response.master, worker:response.worker, masterCheck: (response.masterChecked ? 'y' : 'n'), workercheck: (response.workerChecked ? 'y' : 'n'), enddate: response.endDate, filldate: response.fillDate, feea : response.feeA, feeb : response.feeB, rateain : response.rateAin, rateaout : response.rateAout, ratebin : response.rateBin, rateBout : response.rateBout, plate : response.plate});
         bdElement.find('.bd-name .applicantNameText').text(response.applicantName);
         bdElement.find('.bd-name .numberText').text(response.number);
 
@@ -490,16 +501,28 @@ function updateUser(){
 }
 
 function callSponsee(){
-    $(".sponsee").hide();
-    var code = $(this).attr('code');
-    $(".sponsee[code='" + code + "']").show();
+    if($(this).hasClass('exp')){
+        $(this).removeClass('exp');
+        var code = $(this).attr('code');
+        $(".sponsee[code='" + code + "']").hide();
+    }else{
+        $(this).addClass('exp');
+        $(".sponsee").hide();
+        var code = $(this).attr('code');
+        $(".sponsee[code='" + code + "']").show();
+    }
 }
 
 function replySponser(){
     var v = $(this).text();
     var code = $(this).parent('.sponsee').attr('code');
-    $(".sponser[code='" +code +"']").text(v);
+    $(".sponser[code='" +code +"']").text(v).removeClass('exp');
     $(".sponsee").hide();
+
+    if(code === 'type'){
+        $.cookie('cl_type', v);
+        fillWithCookie();
+    }
 }
 
 function getYear(date){
@@ -579,10 +602,10 @@ function updateBottomInfo(){
         return inRange;
     }
 
-    $(".bif-in").text("收入:" + vin);
-    $(".bif-out").text("支出:" + vout);
-    $(".bif-n-in").text("未入:" + vnin);
-    $(".bif-n-out").text("未出:" + vnout);
+    $(".bif-in").text("收入:" + vin.toFixed(2));
+    $(".bif-out").text("支出:" + vout.toFixed(2));
+    $(".bif-n-in").text("未入:" + vnin.toFixed(2));
+    $(".bif-n-out").text("未出:" + vnout.toFixed(2));
 }
 
 function toggleUserOpt(){
@@ -597,4 +620,111 @@ function toggleUserOpt(){
 
 function toSettingView(){
     self.location='/setting';
+}
+
+function toConsoleView(){
+    self.location='/console';
+}
+
+var masterItem =  '<div class="row master-item"><p class="col-xs-4"></p><p class="btn col-xs-8 delete-master">X</p></div>';
+var workerItem =  '<div class="row worker-item"><p class="col-xs-4"></p><p class="btn col-xs-8 delete-worker">X</p></div>';
+
+function addMaster(){
+    if($(this).hasClass('exp')){
+        var v = $('.master-add-input input').val();
+        if(v !== ''){
+            $.post("addMaster", {name:v}, function(r){
+                if(r.success){
+                    var i = $(masterItem).attr('mid', r.mid).insertAfter($('.master-anchor'));
+                    i.find('.delete-master').attr('mid', r.mid);
+                    i.find('.col-xs-4').text(v);
+                }
+            })
+        }
+        $(".master-add-input").hide().find('input').val('');
+        $(this).removeClass('exp');
+    }else{
+        $(".master-add-input").show().find('input').focus();
+        $(this).addClass('exp');
+    }
+}
+
+function addWorker(){
+    if($(this).hasClass('exp')){
+        var v = $('.worker-add-input input').val();
+        if(v !== ''){
+            $.post("addWorker", {name:v}, function(r){
+                if(r.success){
+                    var i = $(workerItem).attr('wid', r.wid).insertAfter($('.worker-anchor'));
+                    i.find('.delete-worker').attr('wid', r.wid);
+                    i.find('.col-xs-4').text(v);
+                }
+            })
+        }
+        $(".worker-add-input").hide().find('input').val('');
+        $(this).removeClass('exp');
+    }else{
+        $(".worker-add-input").show().find('input').focus();
+        $(this).addClass('exp');
+    }
+}
+
+function deleteMaster(){
+    var mid = $(this).attr('mid');
+    $.post("deleteMaster", {mid: mid}, function(r){
+        if(r.success){
+            $('.setting-page').find('.master-item[mid="' + mid + '"]').remove();
+        }
+    })
+}
+
+function deleteWorker(){
+    var wid = $(this).attr('wid');
+    $.post("deleteWorker", {wid: wid}, function(r){
+        if(r.success){
+            $('.setting-page').find('.worker-item[wid="' + wid + '"]').remove();
+        }
+    })
+}
+
+function updateCookie(){
+    var type = $("input#bdTypeInput").val();
+    var rate_a_in = $("input#feeAinInput").val();
+    var rate_a_out = $("input#feeAoutInput").val();
+    var rate_b_in = $("input#feeBinInput").val();
+    var rate_b_out = $("input#feeBoutInput").val();
+
+    $.cookie('cl_type', type);
+    if(type === '营运'){
+        $.cookie('cl_y_rate_a_in', rate_a_in);
+        $.cookie('cl_y_rate_a_out', rate_a_out);
+        $.cookie('cl_y_rate_b_in', rate_b_in);
+        $.cookie('cl_y_rate_b_out', rate_a_out);
+    }
+    if(type === '非营运'){
+        $.cookie('cl_f_rate_a_in', rate_a_in);
+        $.cookie('cl_f_rate_a_out', rate_a_out);
+        $.cookie('cl_f_rate_b_in', rate_b_in);
+        $.cookie('cl_f_rate_b_out', rate_b_out);
+    }
+}
+
+function fillWithCookie(){
+    var type = $.cookie('cl_type');
+    if(type){
+        $('.sp-type').text(type);
+        $('li#bd-info #bdTypeInput').val(type);
+        if(type === '营运'){
+            $("input#feeAinInput").val($.cookie('cl_y_rate_a_in'));
+            $("input#feeAoutInput").val($.cookie('cl_y_rate_a_out'));
+            $("input#feeBinInput").val($.cookie('cl_y_rate_b_in'));
+            $("input#feeBoutInput").val($.cookie('cl_y_rate_b_out'));
+        }
+        if(type === '非营运'){
+            $("input#feeAinInput").val($.cookie('cl_f_rate_a_in'));
+            $("input#feeAoutInput").val($.cookie('cl_f_rate_a_out'));
+            $("input#feeBinInput").val($.cookie('cl_f_rate_b_in'));
+            $("input#feeBoutInput").val($.cookie('cl_f_rate_b_out'));
+        }
+    }
 }

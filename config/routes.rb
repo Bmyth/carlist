@@ -21,4 +21,9 @@ Myapp::Application.routes.draw do
   match 'addUser' => 'warden#addUser', :via => :post
   match 'deleteUser' => 'warden#deleteUser', :via => :post
   match 'updateUser' => 'warden#updateUser', :via => :post
+
+  match 'addMaster' => 'nexus#addMaster', :via => :post
+  match 'deleteMaster' => 'nexus#deleteMaster', :via => :post
+  match 'addWorker' => 'nexus#addWorker', :via => :post
+  match 'deleteWorker' => 'nexus#deleteWorker', :via => :post
 end

@@ -1,7 +1,12 @@
 .setting-page{
+  width: 100%;
   max-width: 800px;
+  overflow: hidden;
   #login{
     margin-top: 75px;
+  }
+  .top-row{
+    margin: 2px 0;
   }
   #user-list{
     .opt-panel{
@@ -14,5 +19,27 @@
     p{
       text-align: left;
     }
+    .master-add-input{
+      margin: 8px;
+    }
+  }
+  .section-master, .section-worker{
+    .wwopt{
+      margin-bottom: 10px;
+    }
+  }
+  .col-xs-10{
+    text-align: left;
+  }
+  .delete-master, .delete-worker{
+    text-align: right;
+    padding-right: 30px;
+  }
+  .user-name p{
+    text-align: left;
+  }
+  .worker-add-input, .master-add-input{
+    width: 85%;
+    margin-left: 11%;
   }
 }

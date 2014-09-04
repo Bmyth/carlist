@@ -1,9 +1,8 @@
-<div class="container-fluid setting-page">
+<div class="container-fluid setting-page" uid='<%= @user.id %>'>
   <div class="panel">
-    <div class="row">
+    <div class="row top-row">
       <div class="btn-group pull-right">
-        <p class="btn btn-default save">更新</p>
-        <p class="btn btn-default back">返回</p>
+        <p class="btn btn-primary back ">返回</p>
       </div>
     </div>
     <div class="row">
@@ -11,7 +10,7 @@
         <li class="list-group-item">
             <div class="row">
               <div class="title col-xs-4"><p>用户名</p></div>
-              <div class="title col-xs-8"><p><%= @user.name %></p></div>
+              <div class="title col-xs-8 user-name"><p><%= @user.name %></p></div>
             </div>
         </li>
         <li class="list-group-item">
@@ -20,17 +19,49 @@
             <div class="title col-xs-8"><p><%= @user.expiryDate %></p></div>
           </div>
         </li>
-        <li class="list-group-item">
-          <div class="row">
+        <li class="list-group-item section-master">
+          <div class="row wwopt">
             <div class="title col-xs-4"><p>保险公司</p></div>
             <div class="title col-xs-8">
-              <div>
-                <% @user.masters.each do |c| %>
-                    <p><%= c.name %><p>
-                <% end %>
-              </div>
+              <p class="btn btn-default add-master pull-right">+</p>
             </div>
           </div>
+          <div class="row master-add-input" style="display: none">
+            <div class="input-group">
+              <span class="input-group-addon">名称</span>
+              <input type="text" class="form-control" >
+            </div>
+          </div>
+          <p class="master-anchor" style="display: none">
+
+          <% @user.masters.each do |c| %>
+            <div class="row master-item" mid="<%= c.id%>">
+              <p class="col-xs-4"><%= c.name %></p>
+              <p class="btn col-xs-8 delete-master" mid="<%= c.id%>">X</p>
+            </div>
+          <% end %>
+        </li>
+        <li class="list-group-item section-worker">
+          <div class="row wwopt">
+            <div class="title col-xs-4"><p>办理人</p></div>
+            <div class="title col-xs-8">
+              <p class="btn btn-default add-worker pull-right">+</p>
+            </div>
+          </div>
+          <div class="row worker-add-input" style="display: none">
+            <div class="input-group">
+              <span class="input-group-addon">名称</span>
+              <input type="text" class="form-control" >
+            </div>
+          </div>
+          <p class="worker-anchor" style="display: none">
+
+          <% @user.workers.each do |c| %>
+            <div class="row worker-item" wid="<%= c.id%>">
+              <p class="col-xs-4"><%= c.name %></p>
+              <p class="btn col-xs-8 delete-worker" wid="<%= c.id%>">X</p>
+            </div>
+          <% end %>
         </li>
       </ul>
     </div>
