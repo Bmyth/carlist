@@ -117,28 +117,33 @@
 </li>
 <li class="list-group-item" id="fee-a">
   <div class="row show-row">
-    <div class="value col-xs-8">
+    <div class="value col-xs-12">
       <p id="feeAText">金额：未填</p>
+      <p id="taxText">车船税：未填</p>
       <span id="feeAoutText">支付率：未填</span>
       <span id="feeAinText">收入率：未填</span>
     </div>
   </div>
   <div class="row edit-row">
     <div class="title col-xs-4"><p>交强险</p></div>
-    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[feeA]" id="feeAInput"></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean fee-number" placeholder="" name="bd[feeA]" id="feeAInput" feetype="feea"></div>
+  </div>
+  <div class="row edit-row need-farther">
+    <div class="title col-xs-4"><p>车船税</p></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[tax]" id="taxInput"></div>
   </div>
   <div class="row edit-row need-farther">
     <div class="title col-xs-4"><p>收入率</p></div>
-    <div class="value col-xs-8"><input class="need-clean" placeholder="" name="bd[rateAin]" id="feeAinInput"></div>
+    <div class="value col-xs-8"><input class="need-clean" placeholder="" name="bd[rateAin]" id="feeAinInput" feetype="feea"></div>
   </div>
   <div class="row edit-row need-farther">
     <div class="title col-xs-4"><p>支出率</p></div>
-    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[rateAout]" id="feeAoutInput"></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[rateAout]" id="feeAoutInput" feetype="feea"></div>
   </div>
 </li>
 <li class="list-group-item" id="fee-b">
   <div class="row show-row">
-    <div class="value col-xs-8">
+    <div class="value col-xs-12">
       <p id="feeBText">金额：未填</p>
       <span id="feeBoutText">支付率：未填</span>
       <span id="feeBinText">收入率：未填</span>
@@ -146,15 +151,15 @@
   </div>
   <div class="row edit-row">
     <div class="title col-xs-4"><p>商业险</p></div>
-    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[feeB]" id="feeBInput"></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean fee-number" placeholder="" name="bd[feeB]" id="feeBInput" feetype="feeb"></div>
   </div>
   <div class="row edit-row need-farther">
     <div class="title col-xs-4"><p>收入率</p></div>
-    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[rateBin]" id="feeBinInput"></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[rateBin]" id="feeBinInput" feetype="feeb"></div>
   </div>
   <div class="row edit-row need-farther">
     <div class="title col-xs-4"><p>支出率</p></div>
-    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[rateBout]" id="feeBoutInput"></div>
+    <div class="value col-xs-8"><input type="number" class="need-clean" placeholder="" name="bd[rateBout]" id="feeBoutInput" feetype="feeb"></div>
   </div>
 </li>
 <li class="list-group-item" id="date">
