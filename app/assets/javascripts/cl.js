@@ -224,49 +224,14 @@ function submitBD(){
         $.post("updateBD/" + id, postVal, function(r){
             s.removeClass('locked');
             renderBD(r, id);
+            hideDetailPanel();
         });
     }else{
         $.post("addBD", postVal, function(r){
             s.removeClass('locked');
             renderBD(r);
+            hideDetailPanel();
         });
-    }
-
-//    updateCookie();
-
-    function renderBD(response, bdid){
-        var bdElement;
-        if(bdid){
-            bdElement = getBDItem(bdid);
-        }else{
-            var fd = response.fillDate;
-            var dateLi = $('.bd-page li.date-item:first');
-
-            if(fd === dateLi.find('p').text()){
-                bdElement = $('.bd-template').find('.bd-item').clone().insertAfter(dateLi);
-            }else{
-                var di = $('.bd-template').find('.date-item').clone().insertBefore(dateLi);
-                di.find('p').text(fd);
-                bdElement = $('.bd-template').find('.bd-item').clone().insertBefore(dateLi);
-            }
-
-        }
-        bdElement.attr({bdidx:response.id, number:response.number, applicantName:response.applicantName, master:response.master, worker:response.worker, masterCheck: (response.masterChecked ? 'y' : 'n'), workercheck: (response.workerChecked ? 'y' : 'n'), enddate: response.endDate, filldate: response.fillDate, feea : response.feeA, feeb : response.feeB, rateain : response.rateAin, rateaout : response.rateAout, ratebin : response.rateBin, rateBout : response.rateBout, plate : response.plate});
-        bdElement.find('.bd-name .applicantNameText').text(response.applicantName);
-        bdElement.find('.bd-name .numberText').text(response.number);
-
-        bdElement.find('.bd-fee .feeAText').text(response.feeA || '');
-        bdElement.find('.bd-fee .feeBText').text(response.feeB || '');
-
-        var checkStatus = response.workerChecked ? "checked" : "not-checked";
-        bdElement.find('.bd-check #info-worker').removeClass("checked", "not-checked").addClass(checkStatus).text(response.worker);
-        checkStatus = response.masterChecked ? "checked" : "not-checked";
-        bdElement.find('.bd-check #info-master').removeClass("checked", "not-checked").addClass(checkStatus).text(response.master);
-
-        $(".main-bottom-info").text('');
-
-//        updateBottomInfo();
-        hideDetailPanel();
     }
 }
 
@@ -294,11 +259,13 @@ function submitBDandAddAnother(){
         var id = $(".detail-panel").attr('bdid');
         $.post("updateBD/" + id, postVal, function(r){
             s.removeClass('locked');
+            renderBD(r, id);
             addAnother();
         });
     }else{
         $.post("addBD", postVal, function(r){
             s.removeClass('locked');
+            renderBD(r);
             addAnother();
         });
     }
@@ -307,6 +274,38 @@ function submitBDandAddAnother(){
         $(".detail-panel").removeClass('update-mode').addClass('edit-mode').find('input.need-clean:not(".remain")').val("");
         $(".sp-type").text('商业险');
     }
+}
+
+function renderBD(response, bdid){
+    var bdElement;
+    if(bdid){
+        bdElement = getBDItem(bdid);
+    }else{
+        var fd = response.fillDate;
+        var dateLi = $('.bd-page li.date-item:first');
+
+        if(fd === dateLi.find('p').text()){
+            bdElement = $('.bd-template').find('.bd-item').clone().insertAfter(dateLi);
+        }else{
+            var di = $('.bd-template').find('.date-item').clone().insertBefore(dateLi);
+            di.find('p').text(fd);
+            bdElement = $('.bd-template').find('.bd-item').clone().insertBefore(dateLi);
+        }
+
+    }
+    bdElement.attr({bdidx:response.id, number:response.number, applicantName:response.applicantName, master:response.master, worker:response.worker, masterCheck: (response.masterChecked ? 'y' : 'n'), workercheck: (response.workerChecked ? 'y' : 'n'), enddate: response.endDate, filldate: response.fillDate, feea : response.feeA, feeb : response.feeB, rateain : response.rateAin, rateaout : response.rateAout, ratebin : response.rateBin, rateBout : response.rateBout, plate : response.plate});
+    bdElement.find('.bd-name .applicantNameText').text(response.applicantName);
+    bdElement.find('.bd-name .numberText').text(response.number);
+
+    bdElement.find('.bd-fee .feeAText').text(response.feeA || '');
+    bdElement.find('.bd-fee .feeBText').text(response.feeB || '');
+
+    var checkStatus = response.workerChecked ? "checked" : "not-checked";
+    bdElement.find('.bd-check #info-worker').removeClass("checked", "not-checked").addClass(checkStatus).text(response.worker);
+    checkStatus = response.masterChecked ? "checked" : "not-checked";
+    bdElement.find('.bd-check #info-master').removeClass("checked", "not-checked").addClass(checkStatus).text(response.master);
+
+//        updateBottomInfo();
 }
 
 function deleteBD(){

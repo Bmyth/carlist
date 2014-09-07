@@ -6,3 +6,4 @@ class AddTaxToBds < ActiveRecord::Migration
     add_column :bds, :carInfo, :text
   end
 end
+rake
