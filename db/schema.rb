@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140907024525) do
+ActiveRecord::Schema.define(:version => 20140907103915) do
 
   create_table "bds", :force => true do |t|
     t.string   "number"
@@ -41,6 +41,12 @@ ActiveRecord::Schema.define(:version => 20140907024525) do
     t.string   "applicantInfo1"
     t.string   "applicantInfo2"
     t.text     "carInfo"
+    t.string   "carInfo1"
+    t.string   "carInfo2"
+    t.string   "carInfo3"
+    t.string   "carInfo4"
+    t.string   "catalog"
+    t.string   "bdSubType"
   end
 
   create_table "masters", :force => true do |t|

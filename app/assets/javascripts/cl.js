@@ -7,6 +7,7 @@ $(function(){
     $('.detail-panel #edit').click(switchToEditMode);
     $('.console-panel #search').click(toggleSearchRow);
     $(".detail-panel #save").click(submitBD);
+    $(".detail-panel #addSame").click(submitBDandAddAnother);
     $(".detail-panel #delete").click(deleteBD);
 
     $(".console-panel .row-2 .searchKeyBtn").click(toggleSearchKeyList);
@@ -41,9 +42,7 @@ $(function(){
     $(".to-setting").click(toSettingView);
     $(".setting-page .back").click(toConsoleView);
 
-    $("#feeAinInput, #feeAoutInput, #feeBinInput, #feeBoutInput").change(adjustRateInput);
-
-    updateBottomInfo();
+//    updateBottomInfo();
 });
 
 function showDetailPanel(){
@@ -55,28 +54,27 @@ function showDetailPanel(){
         })
     });
 
-    $(".bottom-panel").fadeOut();
+//    $(".bottom-panel").fadeOut();
 
     function renderDetail(response){
         var dp = $('.detail-panel');
         dp.attr('bdID', response.id);
+        dp.find('li#bd-number #numberText').text('保单号：' + (response.number  || '未填'));
+        dp.find('li#bd-number #bdTypeText').text('类型：' + ((response.bdType  || '未填') + '/' +(response.bdSubType  || '未填')));
+        dp.find('li#bd-number #catalogText').text('险种：' + (response.catalog  || '未填'));
         dp.find('li#bd-info #applicantNameText').text('投保人: ' + (response.applicantName || '未填'));
-        dp.find('li#bd-info #plateText').text('车牌号：' + (response.plate || '未填'));
-        dp.find('li#bd-info #numberText').text('保单号：' + (response.number  || '未填'));
-        dp.find('li#bd-info #bdTypeText').text('种类：' + (response.bdType  || '未填'));
+        dp.find('li#bd-info #applicantPhoneText').text('联系方式: ' + (response.applicantPhone || '未填'));
+        dp.find('li#bd-info #carInfoText').text('车辆信息: ' + (response.carInfo || '未填'));
         dp.find('li#master #masterText').text('保险公司：' + (response.master  || '未填'));
         dp.find('li#master .checked').removeClass('checked');
         dp.find('li#worker .checked').removeClass('checked');
         response.masterChecked ? dp.find('li#master .master-check-trigger').addClass('checked') : dp.find('li#master .master-uncheck-trigger').addClass('checked');
         dp.find('li#worker #workerText').text('办理人：' + (response.worker  || '未填'));
         response.workerChecked ? dp.find('li#worker .worker-check-trigger').addClass('checked') : dp.find('li#worker .worker-uncheck-trigger').addClass('checked');
-        dp.find('li#fee-a #feeAText').text('交强险金额：' + (response.feeA  || '未填'));
+        dp.find('li#fee-a #feeAText').text('车险金额：' + (response.feeA  || '未填'));
         dp.find('li#fee-a #taxText').text('车船税金额：' + (response.tax  || '未填'));
-        dp.find('li#fee-a #feeAoutText').text('支付率：' + (response.rateAout  || '未填'));
-        dp.find('li#fee-a #feeAinText').text('收入率：' + (response.rateAin  || '未填'));
-        dp.find('li#fee-b #feeBText').text('商业险金额：' + (response.feeB  || '未填'));
-        dp.find('li#fee-b #feeBoutText').text('支付率：' + (response.rateBout  || '未填'));
-        dp.find('li#fee-b #feeBinText').text('收入率：' + (response.rateBin  || '未填'));
+        dp.find('li#fee-a #feeAoutText').text('支付：' + (response.rateAout  || '未填'));
+        dp.find('li#fee-a #feeAinText').text('收入：' + (response.rateAin  || '未填'));
         dp.find('li#date #fillDateText').text('办理日期：' + (response.fillDate  || '未填'));
         if(response.endDate){
             dp.find('li#date #endDateText').text('到期日期：' + response.endDate);
@@ -85,11 +83,17 @@ function showDetailPanel(){
             dp.find('li#otherInfo #otherInfoText').text(response.otherInfo);
         }
 
-        dp.find('li#bd-info #applicantNameInput').val(response.applicantName);
-        dp.find('li#bd-info #plate').val(response.plate);
-        dp.find('li#bd-info #numberInput').val(response.number);
+        dp.find('li#bd-number #numberInput').val(response.number);
+        dp.find('li#bd-number #bdTypeInput').val(response.bdType);
         dp.find('.sp-type').text(response.bdType || '未填');
-        dp.find('li#bd-info #bdTypeInput').val(response.bdType);
+        dp.find('li#bd-number #bdSubTypeInput').val(response.bdSubType);
+        dp.find('.sp-sub-type').text(response.bdSubType || '未填');
+        dp.find('li#bd-number #catalogInput').val(response.catalog);
+
+        dp.find('li#bd-info #applicantNameInput').val(response.applicantName);
+        dp.find('li#bd-info #applicantPhoneInput').val(response.applicantPhone);
+        dp.find('li#bd-info #carInfoInput').val(response.carInfo);
+
         dp.find('li#master #masterInput').val(response.master);
         dp.find('li#master #masterCheckedInput').val(response.masterChecked);
         dp.find('li#master .sp-master').text(response.master);
@@ -100,9 +104,6 @@ function showDetailPanel(){
         dp.find('li#fee-a #taxInput').val(response.tax);
         dp.find('li#fee-a #feeAoutInput').val(response.rateAout);
         dp.find('li#fee-a #feeAinInput').val(response.rateAin);
-        dp.find('li#fee-b #feeBInput').val(response.feeB);
-        dp.find('li#fee-b #feeBoutInput').val(response.rateBout);
-        dp.find('li#fee-b #feeBinInput').val(response.rateBin);
         dp.find('li#date #fillDateInput').val(response.fillDate);
         dp.find('li#date #endDateInput').val(response.endDate);
         dp.find('li#date .endDateWrapper .endDateYear').text(getYear(response.endDate));
@@ -127,7 +128,7 @@ function hideDetailPanel(){
 function showCreatePanel(){
     $('.bd-page').fadeOut(function(){
         $(".detail-panel").find('input.need-clean').val("");
-        fillWithCookie();
+//        fillWithCookie();
         $(".detail-panel").removeClass('detail-mode').addClass('edit-mode').fadeIn(function(){
 
         });
@@ -136,14 +137,14 @@ function showCreatePanel(){
         $('.nav-padding').css('height',0);
     });
 
-    $(".bottom-panel").fadeOut();
+//    $(".bottom-panel").fadeOut();
 
     $('.console-panel .nav-tabs li').removeClass('active');
     $('.console-panel .nav-tabs li#add').addClass('active');
 }
 
 function toListViewMode(){
-  $(".bottom-panel").fadeIn();
+//  $(".bottom-panel").fadeIn();
   showBDList();
   hideSearchPanel();
 }
@@ -166,12 +167,12 @@ function switchToEditMode(){
 
 function toggleSearchRow(){
     if($(".console-panel .nav-tabs li#search").hasClass('active')){
-        $(".bottom-panel").fadeIn();
+//        $(".bottom-panel").fadeIn();
         hideSearchPanel();
     }else{
         showBDList();
         showSearchPanel();
-        $(".bottom-panel").fadeOut();
+//        $(".bottom-panel").fadeOut();
     }
 }
 
@@ -205,6 +206,7 @@ function submitBD(){
     var s = $(this).addClass('locked');
 
     $(".detail-panel input#bdTypeInput").val($(".sp-type").text());
+    $(".detail-panel input#bdSubTypeInput").val($(".sp-sub-type").text());
     $(".detail-panel #date input#endDateInput").val($(".sp-endDateYear").text() + "-" + $(".sp-endDateMonth").text() + "-" + $(".sp-endDateDay").text());
     $(".detail-panel input#masterInput").val($(".sp-master").text());
     $(".detail-panel input#workerInput").val($(".sp-worker").text());
@@ -219,20 +221,18 @@ function submitBD(){
     var postVal = $('.detail-panel form').serialize();
     if($('.detail-panel').hasClass('update-mode')){
         var id = $(".detail-panel").attr('bdid');
-        $(".main-bottom-info").text('提交修改');
         $.post("updateBD/" + id, postVal, function(r){
             s.removeClass('locked');
             renderBD(r, id);
         });
     }else{
-        $(".main-bottom-info").text('上传保单');
         $.post("addBD", postVal, function(r){
             s.removeClass('locked');
             renderBD(r);
         });
     }
 
-    updateCookie();
+//    updateCookie();
 
     function renderBD(response, bdid){
         var bdElement;
@@ -265,8 +265,47 @@ function submitBD(){
 
         $(".main-bottom-info").text('');
 
-        updateBottomInfo();
+//        updateBottomInfo();
         hideDetailPanel();
+    }
+}
+
+function submitBDandAddAnother(){
+    if($(this).hasClass('locked'))
+        return;
+
+    var s = $(this).addClass('locked');
+
+    $(".detail-panel input#bdTypeInput").val($(".sp-type").text());
+    $(".detail-panel input#bdSubTypeInput").val($(".sp-sub-type").text());
+    $(".detail-panel #date input#endDateInput").val($(".sp-endDateYear").text() + "-" + $(".sp-endDateMonth").text() + "-" + $(".sp-endDateDay").text());
+    $(".detail-panel input#masterInput").val($(".sp-master").text());
+    $(".detail-panel input#workerInput").val($(".sp-worker").text());
+
+    if($("#feeAInput").val() === ""){$("#feeAInput").val(0)}
+    if($("#feeAinInput").val() === ""){$("#feeAinInput").val(0)}
+    if($("#feeAoutInput").val() === ""){$("#feeAoutInput").val(0)}
+    if($("#feeBInput").val() === ""){$("#feeBInput").val(0)}
+    if($("#feeBinInput").val() === ""){$("#feeBinInput").val(0)}
+    if($("#feeBoutInput").val() === ""){$("#feeBoutInput").val(0)}
+
+    var postVal = $('.detail-panel form').serialize();
+    if($('.detail-panel').hasClass('update-mode')){
+        var id = $(".detail-panel").attr('bdid');
+        $.post("updateBD/" + id, postVal, function(r){
+            s.removeClass('locked');
+            addAnother();
+        });
+    }else{
+        $.post("addBD", postVal, function(r){
+            s.removeClass('locked');
+            addAnother();
+        });
+    }
+
+    function addAnother(){
+        $(".detail-panel").removeClass('update-mode').addClass('edit-mode').find('input.need-clean:not(".remain")').val("");
+        $(".sp-type").text('商业险');
     }
 }
 
@@ -525,11 +564,6 @@ function replySponser(){
     var code = $(this).parent('.sponsee').attr('code');
     $(".sponser[code='" +code +"']").text(v).removeClass('exp');
     $(".sponsee").hide();
-
-    if(code === 'type'){
-        $.cookie('cl_type', v);
-        fillWithCookie();
-    }
 }
 
 function getYear(date){

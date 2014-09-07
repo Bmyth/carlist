@@ -232,6 +232,6 @@ class NexusController < ApplicationController
   end
 
   def db_params
-    params.require(:bd).permit(:number, :applicantName, :bdType, :plate, :endDate, :worker, :master, :workerChecked, :masterChecked, :feeA, :rateAin, :rateAout, :feeB, :rateBin, :rateBout, :otherInfo)
+    params.require(:bd).permit(:number, :applicantName, :applicantPhone, :bdType, :bySubType, :catalog, :carInfo1, :carInfo2, :carInfo3, :carInfo4, :carInfo, :plate, :endDate, :worker, :master, :workerChecked, :masterChecked, :feeA, :rateAin, :rateAout, :feeB, :rateBin, :rateBout, :otherInfo)
   end
 end
