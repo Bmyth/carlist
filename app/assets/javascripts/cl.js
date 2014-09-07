@@ -46,18 +46,20 @@ $(function(){
 
 function showDetailPanel(){
     var id = $(this).attr('bdIdx');
+    alert('showDetailPanel 1 ' + id);
     $('.bd-page').fadeOut(function(){
-        $(".main-bottom-info").text('获取数据');
         $.get('getBD',{bd_id:id}, function(r){
+            alert('showDetailPanel 2 ' + JSON.stringify(r));
             renderDetail(r);
+            alert('showDetailPanel 3 ');
             $('.detail-panel').addClass('detail-mode').fadeIn();
-            $(".main-bottom-info").text('');
         })
     });
 
     $(".bottom-panel").fadeOut();
 
     function renderDetail(response){
+        alert('renderDetail 1');
         var dp = $('.detail-panel');
         dp.attr('bdID', response.id);
         dp.find('li#bd-info #applicantNameText').text('投保人: ' + (response.applicantName || '未填'));
@@ -65,27 +67,29 @@ function showDetailPanel(){
         dp.find('li#bd-info #numberText').text('保单号：' + (response.number  || '未填'));
         dp.find('li#bd-info #bdTypeText').text('种类：' + (response.bdType  || '未填'));
         dp.find('li#master #masterText').text('保险公司：' + (response.master  || '未填'));
+        alert('renderDetail 2');
         dp.find('li#master .checked').removeClass('checked');
         dp.find('li#worker .checked').removeClass('checked');
         response.masterChecked ? dp.find('li#master .master-check-trigger').addClass('checked') : dp.find('li#master .master-uncheck-trigger').addClass('checked');
         dp.find('li#worker #workerText').text('办理人：' + (response.worker  || '未填'));
         response.workerChecked ? dp.find('li#worker .worker-check-trigger').addClass('checked') : dp.find('li#worker .worker-uncheck-trigger').addClass('checked');
         dp.find('li#fee-a #feeAText').text('交强险金额：' + (response.feeA  || '未填'));
+        alert('renderDetail 3');
         dp.find('li#fee-a #feeAoutText').text('支付率：' + (response.rateAout  || '未填'));
         dp.find('li#fee-a #feeAinText').text('收入率：' + (response.rateAin  || '未填'));
         dp.find('li#fee-b #feeBText').text('商业险金额：' + (response.feeB  || '未填'));
         dp.find('li#fee-b #feeBoutText').text('支付率：' + (response.rateBout  || '未填'));
         dp.find('li#fee-b #feeBinText').text('收入率：' + (response.rateBin  || '未填'));
         dp.find('li#date #fillDateText').text('办理日期：' + (response.fillDate  || '未填'));
-        if(response.startDate){
-            dp.find('li#date #startDateText').text('生效日期：' + response.startDate);
-        }
+        alert('renderDetail 4');
         if(response.endDate){
             dp.find('li#date #endDateText').text('到期日期：' + response.endDate);
         }
+        alert('renderDetail 5');
         if(response.otherInfo){
             dp.find('li#otherInfo #otherInfoText').text(response.otherInfo);
         }
+        alert('renderDetail 6');
 
         dp.find('li#bd-info #applicantNameInput').val(response.applicantName);
         dp.find('li#bd-info #plate').val(response.plate);
@@ -109,9 +113,11 @@ function showDetailPanel(){
         dp.find('li#date .endDateWrapper .endDateYear').text(getYear(response.endDate));
         dp.find('li#date .endDateWrapper .endDateMonth').text(getMonth(response.endDate));
         dp.find('li#date .endDateWrapper .endDateDay').text(getDay(response.endDate));
+        alert('renderDetail 7');
         if(response.otherInfo){
             dp.find('li#otherInfo #otherInfoInput').val(response.otherInfo);
         }
+        alert('renderDetail 8');
     }
 }
 
@@ -209,6 +215,13 @@ function submitBD(){
     $(".detail-panel #date input#endDateInput").val($(".sp-endDateYear").text() + "-" + $(".sp-endDateMonth").text() + "-" + $(".sp-endDateDay").text());
     $(".detail-panel input#masterInput").val($(".sp-master").text());
     $(".detail-panel input#workerInput").val($(".sp-worker").text());
+
+    if($("#feeAInput").val() === ""){$("#feeAInput").val(0)}
+    if($("#feeAinInput").val() === ""){$("#feeAinInput").val(0)}
+    if($("#feeAoutInput").val() === ""){$("#feeAoutInput").val(0)}
+    if($("#feeBInput").val() === ""){$("#feeBInput").val(0)}
+    if($("#feeBinInput").val() === ""){$("#feeBinInput").val(0)}
+    if($("#feeBoutInput").val() === ""){$("#feeBoutInput").val(0)}
 
     var postVal = $('.detail-panel form').serialize();
     if($('.detail-panel').hasClass('update-mode')){
@@ -506,8 +519,9 @@ function callSponsee(){
         var code = $(this).attr('code');
         $(".sponsee[code='" + code + "']").hide();
     }else{
-        $(this).addClass('exp');
+        $(".detail-panel .sponser.exp").removeClass('exp');
         $(".sponsee").hide();
+        $(this).addClass('exp');
         var code = $(this).attr('code');
         $(".sponsee[code='" + code + "']").show();
     }
