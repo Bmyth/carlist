@@ -122,7 +122,7 @@ function hideDetailPanel(){
     });
     $('.console-panel .nav-tabs li').removeClass('active');
     $('.console-panel .nav-tabs li#list').addClass('active');
-    $(".bottom-panel").show();
+//    $(".bottom-panel").show();
 }
 
 function showCreatePanel(){
